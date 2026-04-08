@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elitez Pitch Deck Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+
+    p {
+      color: #6b7280;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #111827;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .deck-output {
+      margin-top: 35px;
+    }
+
+    .slide {
+      background: #f9fafb;
+      border-left: 5px solid #111827;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+    }
+
+    .slide h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .brand-tag {
+      display: inline-block;
+      background: #111827;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand-tag">Elitez Internal Tool</div>
+    <h1>Elitez Pitch Deck Generator</h1>
+    <p>Fill in the client details and generate a simple sales deck outline.</p>
+
+    <div class="form-group">
+      <label for="clientName">Client Name</label>
+      <input type="text" id="clientName" placeholder="e.g. ABC Holdings" />
+    </div>
+
+    <div class="form-group">
+      <label for="industry">Industry</label>
+      <input type="text" id="industry" placeholder="e.g. Logistics" />
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input type="text" id="country" placeholder="e.g. Vietnam" />
+    </div>
+
+    <div class="form-group">
+      <label for="service">Service Needed</label>
+      <select id="service">
+        <option value="Recruitment">Recruitment</option>
+        <option value="EOR">EOR</option>
+        <option value="Payroll Outsourcing">Payroll Outsourcing</option>
+        <option value="Executive Search">Executive Search</option>
+        <option value="Career Guidance">Career Guidance</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="goal">Pitch Goal</label>
+      <textarea id="goal" rows="4" placeholder="e.g. Convince the client to use Elitez for expansion into Vietnam"></textarea>
+    </div>
+
+    <button onclick="generateDeck()">Generate Pitch Deck</button>
+
+    <div class="deck-output" id="deckOutput"></div>
+  </div>
+
+  <script>
+    function generateDeck() {
+      const clientName = document.getElementById("clientName").value.trim();
+      const industry = document.getElementById("industry").value.trim();
+      const country = document.getElementById("country").value.trim();
+      const service = document.getElementById("service").value;
+      const goal = document.getElementById("goal").value.trim();
+
+      const safeClient = clientName || "Prospective Client";
+      const safeIndustry = industry || "the client's industry";
+      const safeCountry = country || "the target market";
+      const safeGoal = goal || "explore a potential collaboration with Elitez";
+
+      const slides = [
+        {
+          title: "Slide 1: Cover",
+          bullets: [
+            safeClient + " x Elitez Group",
+            service + " Proposal",
+            "Prepared for expansion / workforce strategy discussion"
+          ]
+        },
+        {
+          title: "Slide 2: Client Context",
+          bullets: [
+            safeClient + " operates in " + safeIndustry,
+            "Business focus includes opportunities in " + safeCountry,
+            "Current objective: " + safeGoal
+          ]
+        },
+        {
+          title: "Slide 3: Why This Matters",
+          bullets: [
+            "Hiring and workforce decisions affect speed, cost and execution",
+            "Expansion into new markets requires local knowledge and compliance support",
+            "The right HR partner reduces risk and improves speed-to-impact"
+          ]
+        },
+        {
+          title: "Slide 4: Recommended Solution",
+          bullets: [
+            "Recommended service: " + service,
+            "Tailored support based on business goals and market needs",
+            "End-to-end guidance from strategy to execution"
+          ]
+        },
+        {
+          title: "Slide 5: Why Elitez",
+          bullets: [
+            "Singapore-headquartered HR solutions partner",
+            "Regional capabilities across Southeast Asia",
+            "Strong execution in recruitment, staffing, payroll, EOR and workforce support"
+          ]
+        },
+        {
+          title: "Slide 6: Key Differentiators",
+          bullets: [
+            "Speed, flexibility and market understanding",
+            "Consultative and execution-focused approach",
+            "Practical solutions tailored to client growth needs"
+          ]
+        },
+        {
+          title: "Slide 7: Next Steps",
+          bullets: [
+            "Align on business priorities and hiring needs",
+            "Recommend the right engagement model",
+            "Move into proposal, timeline and implementation discussion"
+          ]
+        }
+      ];
+
+      let outputHTML = "<h2>Generated Deck Outline</h2>";
+
+      slides.forEach(slide => {
+        outputHTML += `
+          <div class="slide">
+            <h3>${slide.title}</h3>
+            <ul>
+              ${slide.bullets.map(point => `<li>${point}</li>`).join("")}
+            </ul>
+          </div>
+        `;
+      });
+
+      document.getElementById("deckOutput").innerHTML = outputHTML;
+    }
+  </script>
+</body>
+</html>
