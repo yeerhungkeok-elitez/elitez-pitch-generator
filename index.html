@@ -1,231 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elitez Pitch Deck Generator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      margin: 0;
-      padding: 0;
-      color: #1f2937;
-    }
+<!-- Left controls -->
+<div class="panel" role="region" aria-label="controls">
+  <div class="brand">
+    <div class="logo">E</div>
+    <div>
+      <div class="title">Elitez Group</div>
+      <div class="sub">Pitch Deck Generator</div>
+    </div>
+  </div>
 
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
+  <div class="intro">Generate a clean, corporate Elitez-style pitch deck outline. Fill details below and create ready-to-review slides.</div>
 
-    h1 {
-      margin-top: 0;
-      font-size: 32px;
-    }
-
-    p {
-      color: #6b7280;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background: #111827;
-      color: white;
-      border: none;
-      padding: 14px 20px;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    button:hover {
-      opacity: 0.95;
-    }
-
-    .deck-output {
-      margin-top: 35px;
-    }
-
-    .slide {
-      background: #f9fafb;
-      border-left: 5px solid #111827;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-    }
-
-    .slide h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    .brand-tag {
-      display: inline-block;
-      background: #111827;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="brand-tag">Elitez Internal Tool</div>
-    <h1>Elitez Pitch Deck Generator</h1>
-    <p>Fill in the client details and generate a simple sales deck outline.</p>
-
-    <div class="form-group">
+  <div class="form" id="form">
+    <div>
       <label for="clientName">Client Name</label>
-      <input type="text" id="clientName" placeholder="e.g. ABC Holdings" />
+      <input id="clientName" type="text" placeholder="e.g. ABC Holdings">
     </div>
 
-    <div class="form-group">
+    <div>
       <label for="industry">Industry</label>
-      <input type="text" id="industry" placeholder="e.g. Logistics" />
+      <input id="industry" type="text" placeholder="e.g. Logistics">
     </div>
 
-    <div class="form-group">
-      <label for="country">Country</label>
-      <input type="text" id="country" placeholder="e.g. Vietnam" />
+    <div>
+      <label for="country">Country / Market</label>
+      <input id="country" type="text" placeholder="e.g. Vietnam">
     </div>
 
-    <div class="form-group">
+    <div>
       <label for="service">Service Needed</label>
       <select id="service">
-        <option value="Recruitment">Recruitment</option>
-        <option value="EOR">EOR</option>
-        <option value="Payroll Outsourcing">Payroll Outsourcing</option>
-        <option value="Executive Search">Executive Search</option>
-        <option value="Career Guidance">Career Guidance</option>
+        <option>Recruitment</option>
+        <option>Payroll Outsourcing</option>
+        <option>EOR / Employer of Record</option>
+        <option>Executive Search</option>
+        <option>Career Guidance</option>
       </select>
     </div>
 
-    <div class="form-group">
+    <div>
       <label for="goal">Pitch Goal</label>
-      <textarea id="goal" rows="4" placeholder="e.g. Convince the client to use Elitez for expansion into Vietnam"></textarea>
+      <textarea id="goal" placeholder="e.g. Convince the client to use Elitez for expansion into Vietnam"></textarea>
     </div>
-
-    <button onclick="generateDeck()">Generate Pitch Deck</button>
-
-    <div class="deck-output" id="deckOutput"></div>
   </div>
 
-  <script>
-    function generateDeck() {
-      const clientName = document.getElementById("clientName").value.trim();
-      const industry = document.getElementById("industry").value.trim();
-      const country = document.getElementById("country").value.trim();
-      const service = document.getElementById("service").value;
-      const goal = document.getElementById("goal").value.trim();
+  <div class="actions">
+    <button class="btn ghost" onclick="resetForm()">Reset</button>
+    <button class="btn primary" onclick="generateDeck()">Generate</button>
+  </div>
 
-      const safeClient = clientName || "Prospective Client";
-      const safeIndustry = industry || "the client's industry";
-      const safeCountry = country || "the target market";
-      const safeGoal = goal || "explore a potential collaboration with Elitez";
+  <div class="bottom-rule" aria-hidden="true"></div>
+</div>
 
-      const slides = [
-        {
-          title: "Slide 1: Cover",
-          bullets: [
-            safeClient + " x Elitez Group",
-            service + " Proposal",
-            "Prepared for expansion / workforce strategy discussion"
-          ]
-        },
-        {
-          title: "Slide 2: Client Context",
-          bullets: [
-            safeClient + " operates in " + safeIndustry,
-            "Business focus includes opportunities in " + safeCountry,
-            "Current objective: " + safeGoal
-          ]
-        },
-        {
-          title: "Slide 3: Why This Matters",
-          bullets: [
-            "Hiring and workforce decisions affect speed, cost and execution",
-            "Expansion into new markets requires local knowledge and compliance support",
-            "The right HR partner reduces risk and improves speed-to-impact"
-          ]
-        },
-        {
-          title: "Slide 4: Recommended Solution",
-          bullets: [
-            "Recommended service: " + service,
-            "Tailored support based on business goals and market needs",
-            "End-to-end guidance from strategy to execution"
-          ]
-        },
-        {
-          title: "Slide 5: Why Elitez",
-          bullets: [
-            "Singapore-headquartered HR solutions partner",
-            "Regional capabilities across Southeast Asia",
-            "Strong execution in recruitment, staffing, payroll, EOR and workforce support"
-          ]
-        },
-        {
-          title: "Slide 6: Key Differentiators",
-          bullets: [
-            "Speed, flexibility and market understanding",
-            "Consultative and execution-focused approach",
-            "Practical solutions tailored to client growth needs"
-          ]
-        },
-        {
-          title: "Slide 7: Next Steps",
-          bullets: [
-            "Align on business priorities and hiring needs",
-            "Recommend the right engagement model",
-            "Move into proposal, timeline and implementation discussion"
-          ]
-        }
-      ];
+<!-- Right preview and output -->
+<div class="stage">
 
-      let outputHTML = "<h2>Generated Deck Outline</h2>";
+  <!-- Live preview area -->
+  <div class="preview" aria-hidden="true">
+    <div id="livePreview" class="slide-card">
+      <!-- default: cover slide -->
+      <div class="cover">
+        <div style="height:10px"></div>
+        <div class="wordmark">
+          E L I <span class="mark">+</span> E Z
+        </div>
+        <div class="tag">FULFILLING HUMAN POTENTIAL WITHOUT BORDERS</div>
 
-      slides.forEach(slide => {
-        outputHTML += `
-          <div class="slide">
-            <h3>${slide.title}</h3>
-            <ul>
-              ${slide.bullets.map(point => `<li>${point}</li>`).join("")}
-            </ul>
-          </div>
-        `;
-      });
+        <div style="flex:1"></div>
 
-      document.getElementById("deckOutput").innerHTML = outputHTML;
-    }
-  </script>
-</body>
-</html>
+        <div class="countries">
+          <div>INDONESIA</div>
+          <div>MALAYSIA</div>
+          <div>SINGAPORE</div>
+          <div>THAILAND</div>
+          <div>VIETNAM</div>
+          <div>INDIA</div>
+        </div>
+
+        <div class="skyline" aria-hidden="true">
+          <!-- subtle skyline SVG for atmosphere -->
+          <svg viewBox="0 0 1600 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ffd9c9"/><stop offset="1" stop-color="#fff6d8"/></linearGradient></defs>
+            <path d="M0 100 C120 60 200 90 320 60 C420 40 520 80 640 60 C740 48 840 80 980 60 C1120 40 1240 80 1440 60 C1520 50 1600 90 1600 120 L0 120 Z" fill="url(#g)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generated deck list -->
+  <div id="deckOutput" class="deck-list" aria-live="polite">
+    <!-- generated slides will appear here -->
+  </div>
+</div>
